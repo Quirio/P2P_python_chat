@@ -5,7 +5,7 @@ HOST = 0
 PORT = 1
 
 def main(*args):
-    client = Client.client(args[HOST],args[PORT])
+    Client.client(args[HOST],args[PORT])
     server = Server.Server(args[PORT])
 
 
