@@ -11,9 +11,9 @@ class Thread_manager:
 
         self.stdscr = curses.initscr()
 
-        self.create_deamon(func,args="")
+        self.create_deamon(func,args)
 
-    def create_deamon(self,action_func,args=""):
+    def create_deamon(self,action_func,args):
         try:
             self.pid = os.fork()
         except OSError, e:

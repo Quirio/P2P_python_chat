@@ -1,11 +1,17 @@
 from Classes import Client
 from Classes import Server
+from Classes import Thread_manager as TM
 
-HOST = 0
-PORT = 1
+import  sys
+
+HOST = sys.argv[1]
+PORT = sys.argv[0]
+
+print(sys.argv[1])
 
 def main(*args):
-    Client.client(args[HOST],args[PORT])
-    server = Server.Server(args[PORT])
+    TM.Thread_manager(Client.client,(HOST,PORT))
+    TM.Thread_manager(Server.Server,(PORT))
 
+main(sys.argv)
 
