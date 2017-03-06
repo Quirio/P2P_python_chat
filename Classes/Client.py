@@ -3,7 +3,7 @@ import socket
 class client:
     def __init__(self,host,port):
         self.socket = socket.socket()
-        self.socket.connect((host, port))
+        self.socket.connect((host, int(port)))
 
     def receip(self):
         while True:
@@ -11,7 +11,7 @@ class client:
             self.socket.send(mensaje)
             if mensaje == '/quit':
                 break
-            self.close()
+        self.close()
 
     def close(self):
         print ("Exiting P2P python chat")

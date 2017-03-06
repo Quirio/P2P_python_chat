@@ -1,19 +1,24 @@
 import socket  
 
 class Server:
-  def __init__(self,port):
+  def __init__(self, port):
+    print(port[0])
     self.socket = socket.socket()
-    self.socket.bind(("0.0.0.0", port))
+    self.port = int(port[0])
+    self.socket.bind(("0.0.0.0", self.port))
     self.socket.listen(1)
-    self.sc = self.socket.accept()
+    self.sc,self.host = self.socket.accept()
+
+    self.listen()
 
   def listen(self):
     while True:
-      recibido = self.sc.recv(1024)
+      recibido = str(self.sc.recv(1024))
       if recibido == '/quit':
         break
-      print("Recibido: "+str(recibido))
-      self.sc.send(recibido)
+      elif len(recibido) != 0:
+        print("Recibido: "+ recibido)
+      #self.sc.send(recibido)
     self.close()
 
   def close(self):

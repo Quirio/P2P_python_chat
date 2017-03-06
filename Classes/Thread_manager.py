@@ -2,7 +2,8 @@ import os
 import curses
 
 class Thread_manager:
-    def __init__(self,func,args):
+    def __init__(self,func,*args):
+        print (args)
         #Constants
         self.UMASK = 0
         self.WORKDIR = "/"
@@ -11,9 +12,14 @@ class Thread_manager:
 
         self.stdscr = curses.initscr()
 
-        self.create_deamon(func,args)
+        self.args = args
+        self.func = func
 
-    def create_deamon(self,action_func,args):
+        self.create_deamon()
+
+        return self.pid
+
+    def create_deamon(self):
         try:
             self.pid = os.fork()
         except OSError, e:
@@ -26,7 +32,7 @@ class Thread_manager:
         else:
             os._exit(0)
 
-        action_func(*args)
+        self.func(self.args)
 
     def remove_deamon(self):
         os._exit(self.pid)
